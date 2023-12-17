@@ -16,7 +16,7 @@ export const register = async (req, res) => {
     } = req.body;
 
     const salt = await bcrypt.genSalt();
-    const passwordHash = await bcrypt.hush(password, salt);
+    const passwordHash = await bcrypt.hash(password, salt);
 
     const newUser = new User({
       firstName,
@@ -27,13 +27,15 @@ export const register = async (req, res) => {
       friends,
       location,
       occupation,
-      viewedProfile: Math.floor(Math.random * 10000),
-      impressions: Math.floor(Math.random * 10000),
+      viewedProfile: Math.floor(Math.random() * 10000),
+      impressions: Math.floor(Math.random() * 10000),
     });
-    const savedUser = await newUser.save();
 
+    const savedUser = await newUser.save();
+    console.log(savedUser);
     res.status(201).json(savedUser);
   } catch (err) {
+    console.log(err);
     res.status(500).json({ error: err.message });
   }
 };

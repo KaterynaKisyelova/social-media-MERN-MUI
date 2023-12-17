@@ -9,15 +9,15 @@ import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
 import { RootState } from "./state";
 
-const router = createBrowserRouter([
-  { path: "/", element: <LoginPage /> },
-  { path: "/home", element: <HomePage /> },
-  { path: "/profile/:userId", element: <ProfilePage /> },
-]);
-
 function App() {
   const mode = useSelector((state: RootState) => state.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+
+  const router = createBrowserRouter([
+    { path: "/", element: <LoginPage /> },
+    { path: "/home", element: <HomePage /> },
+    { path: "/profile/:userId", element: <ProfilePage /> },
+  ]);
 
   return (
     <ThemeProvider theme={theme}>

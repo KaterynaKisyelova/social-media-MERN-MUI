@@ -27,3 +27,25 @@ export type Post = {
   // };
   comments: [];
 };
+
+export type InitialValuesRegister = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  location: string;
+  occupation: string;
+  picture: File | "";
+};
+
+export type InitialValuesLogin = {
+  email: string;
+  password: string;
+};
+
+export type LoginFields = keyof InitialValuesLogin;
+
+export type RegisterFields = keyof Omit<
+  InitialValuesRegister,
+  LoginFields | "picture"
+>;

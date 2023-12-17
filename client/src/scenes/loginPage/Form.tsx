@@ -121,8 +121,7 @@ const Form = () => {
     values: InitialValuesLogin | InitialValuesRegister,
     onSubmitProps: FormikHelpers<InitialValuesLogin | InitialValuesRegister>
   ) => {
-    console.log(values, onSubmitProps);
-    if (isRegister(values)) {
+    if (!isLogin && isRegister(values)) {
       await register(
         values,
         onSubmitProps as FormikHelpers<InitialValuesRegister>
@@ -163,7 +162,8 @@ const Form = () => {
               "& > div": { gridColumn: isNonMobile ? undefined : "span 2" },
             }}
           >
-            {isRegister(values) &&
+            {!isLogin &&
+              isRegister(values) &&
               formRegisterFields.map(({ name, label }) => (
                 <InputField
                   label={label}
@@ -178,7 +178,7 @@ const Form = () => {
                   errors={(errors as FormikErrors<InitialValuesRegister>)[name]}
                 />
               ))}
-            {isRegister(values) && (
+            {!isLogin && isRegister(values) && (
               <Box
                 gridColumn="span 2"
                 border={`1px solid ${medium}`}
@@ -227,7 +227,6 @@ const Form = () => {
               />
             ))}
           </Box>
-
           <Box>
             <Button
               fullWidth
@@ -235,7 +234,7 @@ const Form = () => {
               sx={{
                 m: "2rem 0",
                 p: "1rem",
-                backgoundColor: main,
+                backgroundColor: main,
                 color: alt,
                 "&:hover": { color: main },
               }}

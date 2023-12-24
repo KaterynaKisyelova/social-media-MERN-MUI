@@ -5,7 +5,7 @@ export type User = {
   email: string;
   password: string;
   picturePath: string;
-  friends: [];
+  friends: User[];
   location: string;
   occupation: string;
   viewedProfile: number;

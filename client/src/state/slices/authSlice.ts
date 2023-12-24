@@ -4,8 +4,8 @@ import { PaletteMode } from "@mui/material";
 
 type InitialState = {
   mode: PaletteMode;
-  user: null | User;
-  token: null | string;
+  user: User | null;
+  token: string | null;
   posts: Post[];
 };
 

@@ -34,7 +34,7 @@ export const authSlice = createSlice({
       state.user = null;
       state.token = "";
     },
-    setFriends: (state, { payload }: PayloadAction<{ friends: User[] }>) => {
+    setFriends: (state, { payload }: PayloadAction<{ friends: string[] }>) => {
       if (state.user) {
         state.user.friends = payload.friends;
       } else {

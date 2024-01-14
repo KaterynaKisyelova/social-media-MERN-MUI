@@ -40,15 +40,15 @@ const PostWidget = ({
   const dispatch = useDispatch<AppDispatch>();
   const token = useSelector((state: RootState) => state.token);
   const loggedInUserId = useSelector((state: RootState) => state.user?._id);
-  const isLiked = loggedInUserId && Boolean(likes[loggedInUserId]);
-  const likeCount = likes.length;
   const {
     primary: { main },
     neutral: { main: neutralMain },
   } = useTheme().palette;
+  const isLiked = loggedInUserId && Boolean(likes[loggedInUserId]);
+  const likeCount = Object.keys(likes).length;
 
   const patchLike = async () => {
-    const response = await fetch(`http://localhost:3001/posts${postId}/like`, {
+    const response = await fetch(`http://localhost:3001/posts/${postId}/like`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,

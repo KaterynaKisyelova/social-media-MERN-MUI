@@ -1,37 +1,34 @@
-export type User = {
+export type GeneralFields = {
   _id: string;
   firstName: string;
   lastName: string;
-  email: string;
-  password: string;
-  picturePath: string;
-  friends: User[];
   location: string;
   occupation: string;
+  picturePath: string;
+};
+
+export type User = GeneralFields & {
+  email: string;
+  password: string;
+  friends: GeneralFields[];
   viewedProfile: number;
   impressions: number;
 };
 
-export type Post = {
-  _id: string;
+export type Post = Omit<GeneralFields, "occupation"> & {
   userId: string;
-  firstName: string;
-  lastName: string;
-  location: string;
   description: string;
-  picturePath: string;
   userPicturePath: string;
   likes: { [key: string]: string };
   comments: string[];
 };
 
-export type InitialValuesRegister = {
-  firstName: string;
-  lastName: string;
+export type InitialValuesRegister = Omit<
+  GeneralFields,
+  "_id" | "picturePath"
+> & {
   email: string;
   password: string;
-  location: string;
-  occupation: string;
   picture: File | "";
 };
 

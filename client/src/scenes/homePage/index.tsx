@@ -1,19 +1,17 @@
 import { Box, useMediaQuery } from "@mui/material";
 import Navbar from "../navbar";
-import { shallowEqual, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../state";
 import { Navigate } from "react-router-dom";
 import UserWidget from "../widgets/UserWidget";
 import MyPostWidget from "../widgets/MyPostWidget";
+import PostsWidget from "../widgets/PostsWidget";
 
 const HomePage = () => {
-  const [token, _id, picturePath] = useSelector(
-    (state: RootState) => [
-      state.token,
-      state.user?._id,
-      state.user?.picturePath,
-    ],
-    shallowEqual
+  const token = useSelector((state: RootState) => state.token);
+  const _id = useSelector((state: RootState) => state.user?._id);
+  const picturePath = useSelector(
+    (state: RootState) => state.user?.picturePath
   );
   const isNonMobileScreen = useMediaQuery("(min-width:992px)");
 
@@ -36,7 +34,10 @@ const HomePage = () => {
           <Box
             flexBasis={isNonMobileScreen ? "42%" : undefined}
             mt={isNonMobileScreen ? undefined : "2rem"}
-          ><MyPostWidget></MyPostWidget></Box>
+          >
+            {picturePath && <MyPostWidget picturePath={picturePath} />}
+            {_id && <PostsWidget userId={_id} />}
+          </Box>
           {isNonMobileScreen && <Box flexBasis="26%"></Box>}
         </Box>
       </Box>

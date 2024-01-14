@@ -21,11 +21,8 @@ export type Post = {
   description: string;
   picturePath: string;
   userPicturePath: string;
-  // likes: {
-  //   type: Map;
-  //   of: boolean;
-  // };
-  comments: [];
+  likes: { [key: string]: string };
+  comments: string[];
 };
 
 export type InitialValuesRegister = {

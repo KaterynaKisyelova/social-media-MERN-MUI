@@ -1,18 +1,18 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Post, User } from "../../types";
 import { PaletteMode } from "@mui/material";
 
 type InitialState = {
   mode: PaletteMode;
   user: User | null;
-  token: string | null;
+  token: string;
   posts: Post[];
 };
 
 const initialState: InitialState = {
   mode: "light",
   user: null,
-  token: null,
+  token: "",
   posts: [],
 };
 
@@ -23,25 +23,28 @@ export const authSlice = createSlice({
     setMode: (state) => {
       state.mode = state.mode === "light" ? "dark" : "light";
     },
-    setLogin: (state, { payload }) => {
+    setLogin: (
+      state,
+      { payload }: PayloadAction<{ user: User; token: string }>
+    ) => {
       state.user = payload.user;
       state.token = payload.token;
     },
     setLogout: (state) => {
       state.user = null;
-      state.token = null;
+      state.token = "";
     },
-    setFriends: (state, { payload }) => {
+    setFriends: (state, { payload }: PayloadAction<{ friends: User[] }>) => {
       if (state.user) {
         state.user.friends = payload.friends;
       } else {
         console.log("user friends non-existent");
       }
     },
-    setPosts: (state, { payload }) => {
+    setPosts: (state, { payload }: PayloadAction<{ posts: Post[] }>) => {
       state.posts = payload.posts;
     },
-    setPost: (state, { payload }) => {
+    setPost: (state, { payload }: PayloadAction<{ post: Post }>) => {
       state.posts = state.posts.map((post) =>
         post._id === payload.post._id ? payload.post : post
       );
